@@ -7,7 +7,7 @@ async function readdir(rootDir) {
     const filesArr = walk(files)
     let naoEncontrados = []
 
-    for(let i=1000; i<=2000; i++) {
+    for(let i=1000; i<=1012; i++) {
         let sit = 0;
         for(let file of filesArr) {
             if(i!=file) {
@@ -18,6 +18,7 @@ async function readdir(rootDir) {
             naoEncontrados.push(i)
         }
     }
+    console.log(`Qtd de arquivos faltantes: ${naoEncontrados.length}`)
     console.log(naoEncontrados)
 }
 
@@ -41,10 +42,13 @@ function walk(files) {
     let arr = []
     for(let i of files) {
     
-        if(i.match(/.pdf$/)){
-            const file = i.match(/\d{1,2}.\d{1,3}/)
-            const fileRename = file[0].replace(/\./, "")
-            arr.push(fileRename)
+        if(i.match(/.pdf$/) || i.match(/-2022$/)){
+            let matchNum = i.match(/\d{1,2}.\d{1,3}/);
+            if(matchNum) {
+                const file = matchNum
+                const fileRename = file[0].replace(/\./, "")
+                arr.push(fileRename)
+            }
         }
     }
     return arr
